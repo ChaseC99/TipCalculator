@@ -26,7 +26,7 @@ class OptionsController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         // Tip Percents setup
         tipLabels = [firstTip, secondTip, thirdTip]
         for i in 0...2{
-            tipLabels[i].text = String((main?.tipPercents[i])!*100)
+            tipLabels[i].text = String(Int((main?.tipPercents[i])!*100))
         }
 
         
