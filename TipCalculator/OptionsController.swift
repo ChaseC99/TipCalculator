@@ -11,17 +11,14 @@ import UIKit
 class OptionsController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var main: ViewController?
+    var tipLabels: [UITextField] = []
     
     @IBOutlet weak var firstTip: UITextField!
     @IBOutlet weak var secondTip: UITextField!
     @IBOutlet weak var thirdTip: UITextField!
     
-    var tipLabels: [UITextField] = []
-    
     @IBOutlet weak var currencyInput: UILabel!
     @IBOutlet weak var currencySelector: UIPickerView!
-    
-    var currencies = ["$", "€", "£"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +36,12 @@ class OptionsController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         currencyInput.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         currencyInput.layer.borderWidth = 0.5
         currencyInput.clipsToBounds = true
-        
-        currencyInput.text = main?.billField.placeholder
-        
+        // Picker Configuration
         self.currencySelector.dataSource = self
         self.currencySelector.delegate = self
-        
+        self.currencySelector.selectRow((main?.selectedCurrency)!, inComponent: 0, animated: false)
+        // Set currency value
+        currencyInput.text = main?.currency
         currencyInput.text = main?.currency
     
     }
@@ -75,19 +72,21 @@ class OptionsController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         // Number of rows
-        return currencies.count
+        return (main?.currencies.count)!
     }
     
-    func pickerView(_ pickerView: UIPickerView,
-                    titleForRow row: Int,
-                    forComponent component: Int) -> String? {
-        
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         // Return a string from the array for this row.
-        view.endEditing(false)
-        let selectedCurrency = currencies[row]
-        currencyInput.text = selectedCurrency
-        main?.currency = selectedCurrency
-        main?.updateCurrency(symbol: selectedCurrency)
+        let selectedCurrency = main?.currencies[row]
         return selectedCurrency
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        view.endEditing(false)
+        let selectedCurrency = main?.currencies[row]
+        currencyInput.text = selectedCurrency
+        main?.currency = selectedCurrency!
+        main?.updateCurrency(symbol: selectedCurrency!)
+        main?.selectedCurrency = row
     }
 }

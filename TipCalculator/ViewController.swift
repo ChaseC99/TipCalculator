@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var optionsBarButtonItem: UIBarButtonItem!
     
     var tipPercents = [0.18, 0.2, 0.25]
+    var currencies = ["$", "€", "£", "¥"]
+    var selectedCurrency = 0
     var currency = "$"
     
     override func viewDidLoad() {
