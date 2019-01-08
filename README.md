@@ -28,7 +28,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-
+<img src="https://raw.githubusercontent.com/ChaseC99/TipCalculator/master/TipCalculator.gif" alt='TipCalculator Walkthrough'>
 
 
 ## License
